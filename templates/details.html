@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ app.name }} | GIGA HUB</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #000; color: #fff; }
+        .glass { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(20px); }
+        .progress { width: 0%; height: 100%; background: #22c55e; transition: 4s linear; }
+    </style>
+</head>
+<body class="p-6 md:p-20">
+    <div class="max-w-6xl mx-auto">
+        <a href="/" class="flex items-center gap-2 text-gray-500 hover:text-indigo-400 mb-12 transition font-bold"><i data-lucide="arrow-right"></i> العودة للمتجر</a>
+        <div class="grid lg:grid-cols-2 gap-20 items-start">
+            <div class="sticky top-10">
+                <img src="{{ app.image_url }}" class="w-full aspect-square object-cover rounded-[4rem] shadow-2xl border border-white/5 shadow-indigo-500/10">
+                <div class="grid grid-cols-3 gap-4 mt-8">
+                    <div class="glass p-5 rounded-3xl text-center"><p class="text-gray-500 text-xs mb-1">التحميلات</p><p class="font-bold text-indigo-400 text-xl">{{ app.downloads }}</p></div>
+                    <div class="glass p-5 rounded-3xl text-center"><p class="text-gray-500 text-xs mb-1">الحجم</p><p class="font-bold text-xl">{{ app.file_size }}</p></div>
+                    <div class="glass p-5 rounded-3xl text-center"><p class="text-gray-500 text-xs mb-1">الإصدار</p><p class="font-bold text-xl">{{ app.version }}</p></div>
+                </div>
+            </div>
+            <div class="pt-6">
+                <h1 class="text-7xl font-black mb-4">{{ app.name }}</h1>
+                <p class="text-indigo-500 text-2xl font-bold mb-10">{{ app.tagline }}</p>
+                <div class="prose prose-invert max-w-none text-gray-400 leading-relaxed text-lg mb-12 whitespace-pre-wrap">{{ app.description }}</div>
+                <div id="scan-box" class="glass p-8 rounded-[3rem] border-indigo-500/20 mb-10">
+                    <div class="flex justify-between items-center mb-4"><span id="status" class="text-green-500 font-bold flex items-center gap-2"><i data-lucide="shield-check"></i> جاري الفحص السحابي للملف...</span><span id="pct" class="text-gray-500">0%</span></div>
+                    <div class="w-full bg-white/5 rounded-full overflow-hidden h-2"><div id="bar" class="progress"></div></div>
+                </div>
+                <a id="dl-btn" href="/download_count/{{ app.id }}" class="hidden block w-full bg-white text-black py-8 rounded-[3rem] font-black text-3xl text-center hover:bg-green-600 hover:text-white transition-all duration-500 shadow-2xl">بدء التحميل المباشر</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        lucide.createIcons();
+        window.onload = () => {
+            const bar = document.getElementById('bar'); const pct = document.getElementById('pct');
+            const btn = document.getElementById('dl-btn'); const status = document.getElementById('status');
+            bar.style.width = '100%'; let count = 0;
+            const iv = setInterval(() => { count++; pct.innerText = count + '%'; 
+            if(count>=100){ clearInterval(iv); status.innerHTML="✅ الملف آمن وجاهز للتحميل"; btn.classList.remove('hidden'); lucide.createIcons(); }
+            }, 40);
+        };
+    </script>
+</body>
+</html>

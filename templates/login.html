@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>GIGA HUB | دخول المشرف</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #020205; color: white; }
+        .glass { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.08); backdrop-filter: blur(15px); }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-6">
+    <div class="glass p-12 rounded-[3rem] w-full max-w-md text-center border border-indigo-500/20">
+        <img src="{{ url_for('static', filename='logo.png') }}" class="w-20 h-20 mx-auto mb-8 object-contain">
+        <h2 class="text-3xl font-black mb-2">لوحة التحكم</h2>
+        <p class="text-gray-500 mb-8">يرجى إدخال مفتاح الوصول للمتابعة</p>
+        
+        <form method="POST">
+            <input type="password" name="key" placeholder="كلمة السر الملكية" 
+                   class="w-full bg-black/50 border border-white/10 rounded-2xl py-4 px-6 mb-6 text-center text-xl outline-none focus:border-indigo-500 transition">
+            <button class="w-full bg-white text-black py-4 rounded-2xl font-black text-lg hover:bg-indigo-600 hover:text-white transition-all duration-300 shadow-xl shadow-indigo-500/10">
+                تأكيد الدخول
+            </button>
+        </form>
+    </div>
+</body>
+</html>
